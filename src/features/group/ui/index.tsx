@@ -8,6 +8,11 @@ const GroupStyle = styled.div`
   white-space: nowrap;
   overflow-x: scroll;
   scrollbar-width: none;
+  width: 100%;
+  justify-content: center;
+  div {
+    width: 90%;
+  }
   span {
     position: relative;
     font-size: 15px;
@@ -35,11 +40,13 @@ export const Group = () => {
   const { setSelectedDepartment } = store.useStoreGroup();
   return (
     <GroupStyle>
-      {departament.map((item) => (
-        <span key={item.tag} onClick={() => setSelectedDepartment(item.tag)}>
-          {item.name}
-        </span>
-      ))}
+      <div>
+        {departament.map((item) => (
+          <span key={item.tag} onClick={() => setSelectedDepartment(item.tag)}>
+            {item.name}
+          </span>
+        ))}
+      </div>
     </GroupStyle>
   );
 };

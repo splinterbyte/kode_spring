@@ -20,6 +20,11 @@ type sortStore = {
   setSortByBirthday: (value: boolean) => void;
 };
 
+type onlineStore = {
+  online: boolean;
+  setOnline: (value: boolean) => void;
+};
+
 export const useStoreGroup = create<groupStore>()((set) => ({
   selectedDepartment: "",
   setSelectedDepartment: (tag) => {
@@ -39,4 +44,9 @@ export const useStoreSort = create<sortStore>((set) => ({
   sortByBirthday: false,
   setSortByAlphabet: (value) => set({ sortByAlphabet: value }),
   setSortByBirthday: (value) => set({ sortByBirthday: value }),
+}));
+
+export const useStoreOnline = create<onlineStore>((set) => ({
+  online: true,
+  setOnline: (value) => set({ online: value }),
 }));

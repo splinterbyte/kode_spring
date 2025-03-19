@@ -33,6 +33,7 @@ export const Employees = () => {
   useEffect(() => {
     if (!isLoading && fetchEmployees) {
       setEmployees(fetchEmployees.items);
+      localStorage.setItem("employees", JSON.stringify(fetchEmployees.items)); // Сохраняем в localStorage
     }
   }, [fetchEmployees, isLoading, setEmployees]);
 

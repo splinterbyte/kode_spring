@@ -1,1 +1,6 @@
-export { useStoreGroup, useStoreSearch, useStoreSort } from "./store";
+export {
+  useStoreGroup,
+  useStoreSearch,
+  useStoreSort,
+  useStoreOnline,
+} from "./store";

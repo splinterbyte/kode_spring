@@ -8,7 +8,7 @@ import Modal from "@/features/modal/ui";
 const SearchStyles = styled.div`
   background-color: #f7f7f8;
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 40px;
   border-radius: 16px;
   input {
