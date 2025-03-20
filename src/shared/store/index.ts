@@ -3,4 +3,5 @@ export {
   useStoreSearch,
   useStoreSort,
   useStoreOnline,
+  useStoreLoading,
 } from "./store";

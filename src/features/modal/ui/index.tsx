@@ -53,11 +53,32 @@ type ModalProps = {
 };
 
 const Modal = ({ isOpenModal, onClose }: ModalProps) => {
-  const { setSortByAlphabet } = store.useStoreSort();
+  const {
+    sortByAlphabet,
+    sortByBirthday,
+    setSortByAlphabet,
+    setSortByBirthday,
+  } = store.useStoreSort();
   if (!isOpenModal) return null;
 
+  const handleSortByAlphabet = () => {
+    setSortByAlphabet(true);
+    setSortByBirthday(false);
+    onClose();
+  };
+
+  const handleSortByBirthday = () => {
+    setSortByBirthday(true);
+    onClose();
+  };
+
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
   return (
-    <ModalStyles>
+    <ModalStyles onClick={handleOverlayClick}>
       <div>
         <button className="close-button" onClick={onClose}>
           &times;
@@ -67,12 +88,18 @@ const Modal = ({ isOpenModal, onClose }: ModalProps) => {
           <input
             type="radio"
             name="sort"
-            onClick={() => setSortByAlphabet(true)}
+            onClick={handleSortByAlphabet}
+            checked={sortByAlphabet}
           />
           По алфавиту
         </label>
         <label>
-          <input type="radio" name="sort" />
+          <input
+            type="radio"
+            name="sort"
+            onClick={handleSortByBirthday}
+            checked={sortByBirthday}
+          />
           По дню рождения
         </label>
       </div>

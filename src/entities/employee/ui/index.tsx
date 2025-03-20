@@ -13,7 +13,7 @@ const EmployeeStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-left: 16px;
-    width: 85%;
+    width: 100%;
     span {
       &:first-child {
         font-size: 20px;
@@ -27,7 +27,11 @@ const EmployeeStyle = styled.div`
   }
   p {
     align-items: center;
+    font-size: 15px;
     display: flex;
+    width: 70px;
+    justify-content: right;
+    color: #55555c;
   }
 `;
 

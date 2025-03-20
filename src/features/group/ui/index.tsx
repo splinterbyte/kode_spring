@@ -10,8 +10,12 @@ const GroupStyle = styled.div`
   scrollbar-width: none;
   width: 100%;
   justify-content: center;
+  background: white;
+
   div {
     width: 90%;
+    display: flex;
+    margin-top: 10px;
   }
   span {
     position: relative;

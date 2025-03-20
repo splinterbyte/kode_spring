@@ -6,7 +6,7 @@ const SearchErrorStyles = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 70vh;
   width: 100%;
   span {
     &:first-of-type {

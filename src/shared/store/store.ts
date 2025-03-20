@@ -25,6 +25,11 @@ type onlineStore = {
   setOnline: (value: boolean) => void;
 };
 
+type loadingStore = {
+  loading: boolean;
+  setLoading: (value: boolean) => void;
+};
+
 export const useStoreGroup = create<groupStore>()((set) => ({
   selectedDepartment: "",
   setSelectedDepartment: (tag) => {
@@ -49,4 +54,9 @@ export const useStoreSort = create<sortStore>((set) => ({
 export const useStoreOnline = create<onlineStore>((set) => ({
   online: true,
   setOnline: (value) => set({ online: value }),
+}));
+
+export const useStoreLoading = create<loadingStore>((set) => ({
+  loading: false,
+  setLoading: (value) => set({ loading: value }),
 }));
