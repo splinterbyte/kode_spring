@@ -60,3 +60,18 @@ export const useStoreLoading = create<loadingStore>((set) => ({
   loading: false,
   setLoading: (value) => set({ loading: value }),
 }));
+
+type Theme = "light" | "dark";
+
+interface themeStore {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+export const useStoreTheme = create<themeStore>((set) => ({
+  theme: "light", // Начальная тема
+  toggleTheme: () =>
+    set((state) => ({
+      theme: state.theme === "light" ? "dark" : "light",
+    })),
+}));

@@ -2,10 +2,15 @@ import { Search } from "@/features/search";
 import { Group } from "@/features/group";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { store } from "@/shared";
+import { store, themes } from "@/shared";
 import { useGetEmployees } from "@/widgets/employees/api/useGetEmployees";
+import { ToggleTheme } from "@/features/theme/ui";
 
-const TopBar = styled.div<{ changeColor: boolean; tempBlue: boolean }>`
+const TopBar = styled.div<{
+  changeColor: boolean;
+  tempBlue: boolean;
+  themeBg: string;
+}>`
   width: 100%;
   height: auto;
   display: flex;
@@ -15,11 +20,11 @@ const TopBar = styled.div<{ changeColor: boolean; tempBlue: boolean }>`
   transition: background-color 0.5s ease;
 
   /* Логика для background-color */
-  background-color: ${({ tempBlue, changeColor }) => {
+  background-color: ${({ tempBlue, changeColor, themeBg }) => {
     if (tempBlue) {
       return "#6534FF"; // Синий фон, если загрузка активна
     }
-    return changeColor ? "transparent" : "#F44336"; // Прозрачный или красный фон
+    return changeColor ? themeBg : "#F44336"; // Прозрачный или красный фон
   }};
 
   h1 {
@@ -41,7 +46,7 @@ export const Topappbar = () => {
   const { selectedDepartment } = store.useStoreGroup();
   const { refetch } = useGetEmployees(selectedDepartment);
   const [tempBlue, setTempBlue] = useState(false);
-
+  const theme = store.useStoreTheme((state) => state.theme);
   const updateNetworkStatus = () => {
     setIsOnline(navigator.onLine);
     if (navigator.onLine) {
@@ -63,10 +68,15 @@ export const Topappbar = () => {
   }, []);
 
   return (
-    <TopBar changeColor={isOnline} tempBlue={tempBlue}>
+    <TopBar
+      changeColor={isOnline}
+      tempBlue={tempBlue}
+      themeBg={themes[theme].background}
+    >
       <h1>Поиск</h1>
       <Search isOnline={isOnline} tempBlue={tempBlue} />
       <Group />
+      <ToggleTheme />
     </TopBar>
   );
 };

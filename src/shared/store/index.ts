@@ -4,4 +4,5 @@ export {
   useStoreSort,
   useStoreOnline,
   useStoreLoading,
+  useStoreTheme,
 } from "./store";
