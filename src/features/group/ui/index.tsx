@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { departament, store } from "@/shared";
+import { useDepartments, useStoreTheme, useStoreGroup, themes } from "@/shared";
 
-const GroupStyle = styled.div`
+const GroupStyle = styled.div<{ theme: string }>`
   display: flex;
   align-items: center;
   margin-top: 15px;
@@ -10,8 +10,8 @@ const GroupStyle = styled.div`
   scrollbar-width: none;
   width: 100%;
   justify-content: center;
-  background: white;
-
+  background: ${({ theme }) => theme.backgroundBlack};
+  transition: background-color 0.5s ease;
   div {
     width: 90%;
     display: flex;
@@ -23,6 +23,7 @@ const GroupStyle = styled.div`
     padding: 0 10px;
     height: 25px;
     cursor: pointer;
+    color: ${({ theme }) => theme.color};
     &:after {
       content: "";
       position: absolute;
@@ -41,13 +42,18 @@ const GroupStyle = styled.div`
 `;
 
 export const Group = () => {
-  const { setSelectedDepartment } = store.useStoreGroup();
+  const { setSelectedDepartment } = useStoreGroup();
+  const theme = useStoreTheme((state) => state.theme);
+  const departaments = useDepartments();
   return (
-    <GroupStyle>
+    <GroupStyle theme={themes[theme]}>
       <div>
-        {departament.map((item) => (
-          <span key={item.tag} onClick={() => setSelectedDepartment(item.tag)}>
-            {item.name}
+        {departaments.map((departament) => (
+          <span
+            key={departament.tag}
+            onClick={() => setSelectedDepartment(departament.tag)}
+          >
+            {departament.name}
           </span>
         ))}
       </div>

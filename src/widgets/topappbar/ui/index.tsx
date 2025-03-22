@@ -2,14 +2,15 @@ import { Search } from "@/features/search";
 import { Group } from "@/features/group";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { store, themes } from "@/shared";
+import { themes } from "@/shared";
 import { useGetEmployees } from "@/widgets/employees/api/useGetEmployees";
-import { ToggleTheme } from "@/features/theme/ui";
+import { useStoreGroup, useStoreTheme } from "@/shared/store";
+import { useTranslation } from "react-i18next";
 
 const TopBar = styled.div<{
   changeColor: boolean;
   tempBlue: boolean;
-  themeBg: string;
+  theme: string;
 }>`
   width: 100%;
   height: auto;
@@ -19,34 +20,26 @@ const TopBar = styled.div<{
   align-items: center;
   transition: background-color 0.5s ease;
 
-  /* Логика для background-color */
-  background-color: ${({ tempBlue, changeColor, themeBg }) => {
-    if (tempBlue) {
-      return "#6534FF"; // Синий фон, если загрузка активна
-    }
-    return changeColor ? themeBg : "#F44336"; // Прозрачный или красный фон
-  }};
+  background-color: ${({ tempBlue, changeColor, theme }) =>
+    tempBlue ? "#6534FF" : changeColor ? theme.backgroundBlack : "#F44336"};
 
   h1 {
-    color: ${({ changeColor, tempBlue }) => {
-      if (changeColor === false && tempBlue === false) {
-        return "#fff";
-      }
-      if (tempBlue === true && changeColor === true) {
-        return "#fff";
-      }
-      return "#000";
-    }};
+    color: ${({ changeColor, tempBlue, theme }) =>
+      (changeColor === false && tempBlue === false) ||
+      (changeColor === true && tempBlue === true)
+        ? "#fff"
+        : theme.color};
+    margin: 10px 0 10px 0;
     width: 90%;
   }
 `;
 
 export const Topappbar = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const { selectedDepartment } = store.useStoreGroup();
+  const { selectedDepartment } = useStoreGroup();
   const { refetch } = useGetEmployees(selectedDepartment);
   const [tempBlue, setTempBlue] = useState(false);
-  const theme = store.useStoreTheme((state) => state.theme);
+  const theme = useStoreTheme((state) => state.theme);
   const updateNetworkStatus = () => {
     setIsOnline(navigator.onLine);
     if (navigator.onLine) {
@@ -65,18 +58,14 @@ export const Topappbar = () => {
       window.removeEventListener("online", updateNetworkStatus);
       window.removeEventListener("offline", updateNetworkStatus);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const { t } = useTranslation();
   return (
-    <TopBar
-      changeColor={isOnline}
-      tempBlue={tempBlue}
-      themeBg={themes[theme].background}
-    >
-      <h1>Поиск</h1>
+    <TopBar changeColor={isOnline} tempBlue={tempBlue} theme={themes[theme]}>
+      <h1>{t("search")}</h1>
       <Search isOnline={isOnline} tempBlue={tempBlue} />
       <Group />
-      <ToggleTheme />
     </TopBar>
   );
 };

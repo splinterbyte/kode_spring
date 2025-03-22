@@ -1,0 +1,40 @@
+{
+  "departments": {
+    "all": "Все",
+    "android": "Android",
+    "ios": "iOS",
+    "design": "Дизайн",
+    "management": "Менеджмент",
+    "back_office": "Бэк-офис",
+    "frontend": "Frontend",
+    "hr": "HR",
+    "pr": "PR",
+    "backend": "Backend",
+    "support": "Техподдержка",
+    "analytics": "Аналитика"
+  },
+  "search": "Поиск",
+  "months": [
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря"
+  ],
+  "placeholder": "Поиск по имени, департаменту, тегу...",
+  "sort": "Сортировка",
+  "sortByAlphabet": "По алфавиту",
+  "sortByDate": "По дню рождения",
+  "srcErrorTitle": "Мы никого не нашли",
+  "srcErrorMessage": "Попробуй скорректировать запрос",
+  "srvErrorTitle": "Какой-то сверхразум все сломал",
+  "srvErrorMessage": "Постараемся быстро починить",
+  "srvTryAgain": "Попробовать снова"
+}

@@ -1,11 +1,17 @@
 import { Employee, TEmployee } from "@/entities/employee";
 import { useGetEmployees } from "../api/useGetEmployees";
 import styled from "styled-components";
-import { store } from "@/shared";
 import { Skeleton } from "./skeleton";
 import { useEffect } from "react";
-import { SearchError } from "./error";
+import { SearchError } from "./searchError";
 import { Link } from "react-router";
+import {
+  useStoreGroup,
+  useStoreLoading,
+  useStoreSearch,
+  useStoreSort,
+} from "@/shared/store";
+import { ServerError } from "./serverError";
 
 const EmployeesStyles = styled.div`
   display: flex;
@@ -36,17 +42,20 @@ const EmployeesStyles = styled.div`
 `;
 
 export const Employees = () => {
-  const { selectedDepartment } = store.useStoreGroup();
-  const { setEmployees, employees, searchQuery } = store.useStoreSearch();
-  const { sortByAlphabet, sortByBirthday } = store.useStoreSort();
-  const { loading, setLoading } = store.useStoreLoading();
-  const { data: fetchEmployees = [], isLoading } =
-    useGetEmployees(selectedDepartment);
+  const { selectedDepartment } = useStoreGroup();
+  const { setEmployees, employees, searchQuery } = useStoreSearch();
+  const { sortByAlphabet, sortByBirthday } = useStoreSort();
+  const { loading, setLoading } = useStoreLoading();
+
+  const {
+    data: fetchEmployees = [],
+    isLoading,
+    isError,
+  } = useGetEmployees(selectedDepartment);
 
   useEffect(() => {
     if (isLoading) {
-      // Устанавливаем загрузку только если текущее значение loading отличается от isLoading
-      const currentLoading = loading; // Получаем текущее значение loading
+      const currentLoading = loading;
       if (currentLoading !== isLoading) {
         setLoading(isLoading);
       }
@@ -117,6 +126,10 @@ export const Employees = () => {
     (sortByBirthday &&
       (currentYearUsers.length > 0 || nextYearUsers.length > 0)) ||
     (!sortByBirthday && sortedByAlphabet.length > 0);
+
+  if (isError) {
+    return <ServerError />;
+  }
 
   return (
     <EmployeesStyles>
