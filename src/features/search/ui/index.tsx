@@ -1,6 +1,6 @@
 import filter from "@/shared/assets/filter.svg";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "@/features/modal";
 import { themes, useStoreSearch, useStoreTheme } from "@/shared";
 import { useTranslation } from "react-i18next";
@@ -58,18 +58,30 @@ type Props = {
 
 export const Search = ({ isOnline, tempBlue }: Props) => {
   const [isOpen, setOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const { setSearchQuery } = useStoreSearch();
+  const { searchQuery, setSearchQuery } = useStoreSearch();
   const { t } = useTranslation();
   console.log(tempBlue);
   console.log(isOnline);
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      setSearchQuery(inputValue);
-    }, 1000);
 
-    return () => clearTimeout(debounceTimer);
-  }, [inputValue, setSearchQuery]);
+  const [inputValue, setInputValue] = useState(searchQuery);
+
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    setInputValue(searchQuery);
+  }, [searchQuery]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputValue(value);
+
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+    }
+    debounceTimer.current = setTimeout(() => {
+      setSearchQuery(value);
+    }, 1000);
+  };
   const { theme } = useStoreTheme();
   return (
     <SearchStyles
@@ -100,7 +112,7 @@ export const Search = ({ isOnline, tempBlue }: Props) => {
             ? "Не могу обновить данные. Проверь соединение с интернетом."
             : inputValue
         }
-        onChange={(event) => setInputValue(event.target.value)}
+        onChange={handleInputChange}
         disabled={!isOnline}
       />
       <img src={filter} onClick={() => setOpen(!isOpen)} />
