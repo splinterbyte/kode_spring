@@ -5,6 +5,7 @@ import { useStoreSearch, useStoreTheme, themes } from "@/shared";
 import { useGetEmployees } from "@/widgets/employees/api/useGetEmployees";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Skeleton, SkeletonSpan } from "./skeleton";
 
 const ProfileStyles = styled.div<{ theme: string }>`
   display: flex;
@@ -149,6 +150,8 @@ export const Profile = () => {
         : age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)
         ? "года"
         : "лет"
+      : isLoading
+      ? undefined
       : "years";
 
   const [year, month, day] = employee?.birthday?.split("-") ?? [];
@@ -177,12 +180,16 @@ export const Profile = () => {
             </Link>
           </span>
           <div className="card">
-            <img src={employee?.avatarUrl} />
+            {isLoading ? <Skeleton /> : <img src={employee?.avatarUrl} />}
             <h1>
-              {employee?.firstName} {employee?.lastName}
+              {isLoading ? (
+                <SkeletonSpan />
+              ) : (
+                `${employee?.firstName} ${employee?.lastName}`
+              )}
               <span>{employee?.userTag}</span>
             </h1>
-            <span>{employee?.department}</span>
+            <span>{isLoading ? <SkeletonSpan /> : employee?.department}</span>
           </div>
         </div>
       </div>
@@ -203,11 +210,11 @@ export const Profile = () => {
                 />
               </svg>
 
-              {formatBirthday}
+              {isLoading ? <SkeletonSpan /> : formatBirthday}
             </span>
 
             <span className="age">
-              {age} {ageSuffix}
+              {isLoading ? <SkeletonSpan /> : `${age} ${ageSuffix}`}
             </span>
           </div>
           <hr />
@@ -226,7 +233,7 @@ export const Profile = () => {
                 />
               </svg>
 
-              {formatPhone}
+              {isLoading ? <SkeletonSpan /> : formatPhone}
             </a>
           </div>
         </div>
