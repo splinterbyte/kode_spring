@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router";
+import { HashRouter as Router, Routes, Route } from "react-router";
 import { Home } from "@/pages/home";
 import { Profile } from "@/pages/profile";
 import { createGlobalStyle } from "styled-components";
@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
 export const AppRouter = () => {
   const { theme } = useStoreTheme();
   return (
-    <Router basename="/kode_spring">
+    <Router>
       <GlobalStyles theme={themes[theme]} />
       <Routes>
         <Route path="/" element={<Home />} />

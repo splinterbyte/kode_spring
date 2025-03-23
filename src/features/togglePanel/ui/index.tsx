@@ -66,14 +66,13 @@ export const TogglePanel = () => {
 
   const availableLanguages = ["ru", "en"];
 
-  // Функция для переключения языка
   const toggleLanguage = () => {
     const currentIndex = availableLanguages.indexOf(language);
     const nextIndex = (currentIndex + 1) % availableLanguages.length;
     const nextLanguage = availableLanguages[nextIndex];
 
-    setLanguage(nextLanguage); // Обновляем состояние
-    i18n.changeLanguage(nextLanguage); // Меняем язык в i18next
+    setLanguage(nextLanguage);
+    i18n.changeLanguage(nextLanguage);
   };
 
   return (

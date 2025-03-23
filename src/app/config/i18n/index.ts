@@ -11,7 +11,7 @@ i18n
     fallbackLng: "ru",
     lng: "ru",
     backend: {
-      loadPath: "/locales/{{lng}}/translation.json",
+      loadPath: "locales/{{lng}}/translation.json",
     },
     interpolation: {
       escapeValue: false,

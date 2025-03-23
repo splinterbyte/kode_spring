@@ -60,8 +60,6 @@ export const Search = ({ isOnline, tempBlue }: Props) => {
   const [isOpen, setOpen] = useState(false);
   const { searchQuery, setSearchQuery } = useStoreSearch();
   const { t } = useTranslation();
-  console.log(tempBlue);
-  console.log(isOnline);
 
   const [inputValue, setInputValue] = useState(searchQuery);
 

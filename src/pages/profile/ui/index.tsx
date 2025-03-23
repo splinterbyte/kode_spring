@@ -1,5 +1,5 @@
 import { TEmployee } from "@/entities/employee";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import styled from "styled-components";
 import { useStoreSearch, useStoreTheme, themes } from "@/shared";
 import { useGetEmployees } from "@/widgets/employees/api/useGetEmployees";
@@ -106,14 +106,24 @@ const ProfileStyles = styled.div<{ theme: string }>`
 export const Profile = () => {
   const { id } = useParams();
   const { employees, setEmployees } = useStoreSearch();
-  const { data: fetchEmployees = [], isLoading } = useGetEmployees("");
+  const {
+    data: fetchEmployees = [],
+    isLoading,
+    isError = true,
+  } = useGetEmployees("");
   const { theme } = useStoreTheme();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
     if (!isLoading && fetchEmployees && employees.length === 0) {
       setEmployees(fetchEmployees.items);
     }
-  }, [fetchEmployees, isLoading, employees, setEmployees]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchEmployees, isLoading, employees, setEmployees, isError]);
 
   const months = t("months", { returnObjects: true }) as string[];
 
