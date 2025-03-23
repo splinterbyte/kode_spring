@@ -1,0 +1,41 @@
+{
+  "departments": {
+    "all": "All",
+    "android": "Android",
+    "ios": "iOS",
+    "design": "Design",
+    "management": "Management",
+    "back_office": "Back Office",
+    "frontend": "Frontend",
+    "hr": "HR",
+    "pr": "PR",
+    "backend": "Backend",
+    "support": "Support",
+    "analytics": "Analytics"
+  },
+  "search": "Search",
+
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "placeholder": "Search by name, department, tag...",
+  "sort": "Sort",
+  "sortByDate": "By birthday",
+  "sortByAlphabet": "By alphabet",
+  "srcErrorTitle": "Not found",
+  "srcErrorMessage": "Try to adjust the query.",
+  "srvErrorTitle": "Some superintelligence broke everything",
+  "srvErrorMessage": "We will try to fix it quickly.",
+  "srvTryAgain": "Try again"
+}
