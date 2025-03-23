@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
 export const AppRouter = () => {
   const { theme } = useStoreTheme();
   return (
-    <Router>
+    <Router basename="/kode_spring">
       <GlobalStyles theme={themes[theme]} />
       <Routes>
         <Route path="/" element={<Home />} />
