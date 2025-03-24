@@ -4,18 +4,15 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const TogglePanelStyles = styled.div`
-  position: fixed;
+  /* position: fixed; */
   bottom: 20px;
   right: 20px;
-
+  flex-direction: row;
   font-size: 16px;
-  color: white;
   border: none;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   display: flex;
-  flex-direction: column;
-  height: 120px;
   justify-content: space-evenly;
   button {
     appearance: none;
@@ -31,9 +28,9 @@ const TogglePanelStyles = styled.div`
     font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    margin: 0;
-    height: 50px;
-    width: 50px;
+    margin-left: 10px;
+    height: 40px;
+    width: 40px;
     outline: none;
     text-align: center;
     text-decoration: none;

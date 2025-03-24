@@ -187,7 +187,7 @@ export const Profile = () => {
               ) : (
                 `${employee?.firstName} ${employee?.lastName}`
               )}
-              <span>{employee?.userTag}</span>
+              {isLoading ? "" : <span>{employee?.userTag}</span>}
             </h1>
             <span>{isLoading ? <SkeletonSpan /> : employee?.department}</span>
           </div>

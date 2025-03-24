@@ -32,7 +32,7 @@ type loadingStore = {
 };
 
 export const useStoreGroup = create<groupStore>()((set) => ({
-  selectedDepartment: "",
+  selectedDepartment: "all",
   setSelectedDepartment: (tag) => {
     set({ selectedDepartment: tag });
   },
@@ -46,7 +46,7 @@ export const useStoreSearch = create<searchStore>((set) => ({
 }));
 
 export const useStoreSort = create<sortStore>((set) => ({
-  sortByAlphabet: false,
+  sortByAlphabet: true,
   sortByBirthday: false,
   setSortByAlphabet: (value) => set({ sortByAlphabet: value }),
   setSortByBirthday: (value) => set({ sortByBirthday: value }),

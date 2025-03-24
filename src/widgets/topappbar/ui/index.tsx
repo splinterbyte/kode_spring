@@ -6,6 +6,7 @@ import { themes } from "@/shared";
 import { useGetEmployees } from "@/widgets/employees/api/useGetEmployees";
 import { useStoreGroup, useStoreTheme } from "@/shared/store";
 import { useTranslation } from "react-i18next";
+import { TogglePanel } from "@/features/togglePanel";
 
 const TopBar = styled.div<{
   changeColor: boolean;
@@ -31,6 +32,8 @@ const TopBar = styled.div<{
         : theme.color};
     margin: 10px 0 10px 0;
     width: 90%;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -63,7 +66,9 @@ export const Topappbar = () => {
   const { t } = useTranslation();
   return (
     <TopBar changeColor={isOnline} tempBlue={tempBlue} theme={themes[theme]}>
-      <h1>{t("search")}</h1>
+      <h1>
+        {t("search")} <TogglePanel />
+      </h1>
       <Search isOnline={isOnline} tempBlue={tempBlue} />
       <Group />
     </TopBar>

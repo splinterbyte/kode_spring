@@ -38,11 +38,14 @@ const GroupStyle = styled.div<{ theme: string }>`
     &:hover::after {
       transform: scaleX(1);
     }
+    &.active::after {
+      transform: scaleX(1);
+    }
   }
 `;
 
 export const Group = () => {
-  const { setSelectedDepartment } = useStoreGroup();
+  const { selectedDepartment, setSelectedDepartment } = useStoreGroup();
   const theme = useStoreTheme((state) => state.theme);
   const departaments = useDepartments();
   return (
@@ -50,8 +53,11 @@ export const Group = () => {
       <div>
         {departaments.map((departament) => (
           <span
+            className={selectedDepartment === departament.tag ? "active" : ""}
             key={departament.tag}
-            onClick={() => setSelectedDepartment(departament.tag)}
+            onClick={() => {
+              setSelectedDepartment(departament.tag);
+            }}
           >
             {departament.name}
           </span>
